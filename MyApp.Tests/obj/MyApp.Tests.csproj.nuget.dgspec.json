@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\MyApp.Tests\\MyApp.Tests.csproj": {}
+    "c:\\Users\\Ejer\\source\\repos\\ProjectBDSA\\MyApp.Tests\\MyApp.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\MyApp.Tests\\MyApp.Tests.csproj": {
+    "c:\\Users\\Ejer\\source\\repos\\ProjectBDSA\\MyApp.Tests\\MyApp.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\MyApp.Tests\\MyApp.Tests.csproj",
+        "projectUniqueName": "c:\\Users\\Ejer\\source\\repos\\ProjectBDSA\\MyApp.Tests\\MyApp.Tests.csproj",
         "projectName": "MyApp.Tests",
-        "projectPath": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\MyApp.Tests\\MyApp.Tests.csproj",
-        "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\MyApp.Tests\\obj\\",
+        "projectPath": "c:\\Users\\Ejer\\source\\repos\\ProjectBDSA\\MyApp.Tests\\MyApp.Tests.csproj",
+        "packagesPath": "C:\\Users\\Ejer\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\Ejer\\source\\repos\\ProjectBDSA\\MyApp.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Ejer\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -26,8 +26,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\MyApp\\MyApp.csproj": {
-                "projectPath": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\MyApp\\MyApp.csproj"
+              "c:\\Users\\Ejer\\source\\repos\\ProjectBDSA\\MyApp\\MyApp.csproj": {
+                "projectPath": "c:\\Users\\Ejer\\source\\repos\\ProjectBDSA\\MyApp\\MyApp.csproj"
               }
             }
           }
@@ -57,21 +57,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\MyApp\\MyApp.csproj": {
+    "c:\\Users\\Ejer\\source\\repos\\ProjectBDSA\\MyApp\\MyApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\MyApp\\MyApp.csproj",
+        "projectUniqueName": "c:\\Users\\Ejer\\source\\repos\\ProjectBDSA\\MyApp\\MyApp.csproj",
         "projectName": "MyApp",
-        "projectPath": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\MyApp\\MyApp.csproj",
-        "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\MyApp\\obj\\",
+        "projectPath": "c:\\Users\\Ejer\\source\\repos\\ProjectBDSA\\MyApp\\MyApp.csproj",
+        "packagesPath": "C:\\Users\\Ejer\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\Ejer\\source\\repos\\ProjectBDSA\\MyApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Ejer\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -110,7 +110,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
