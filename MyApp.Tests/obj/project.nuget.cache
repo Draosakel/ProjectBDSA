@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bHIpRHifBcbgXxZYLIMJtm2/cshmiqh4ORik2xtOLkspomZeLqOGDB1dsJ0hmlGH1W4HmPJiRzqAywkLkPXZwg==",
+  "dgSpecHash": "WK1M6I2UAZo1Idhw3BmgCPrvZvw4rsZlS/fSzq9Onk77qrn07qs4tQMvPIOr2VdR+QHaj1jMZ4186rzh9Dp7bg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\MyApp.Tests\\MyApp.Tests.csproj",
+  "projectFilePath": "c:\\Users\\Ejer\\source\\repos\\ProjectBDSA\\MyApp.Tests\\MyApp.Tests.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
