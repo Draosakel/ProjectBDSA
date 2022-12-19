@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chris\\Desktop\\BDSA\\C#\\projectBDSA\\Project.Tests\\Project.Tests.csproj": {}
+    "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project.Tests\\Project.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chris\\Desktop\\BDSA\\C#\\projectBDSA\\Project.Tests\\Project.Tests.csproj": {
+    "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project.Tests\\Project.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\projectBDSA\\Project.Tests\\Project.Tests.csproj",
+        "projectUniqueName": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project.Tests\\Project.Tests.csproj",
         "projectName": "Project.Tests",
-        "projectPath": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\projectBDSA\\Project.Tests\\Project.Tests.csproj",
+        "projectPath": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project.Tests\\Project.Tests.csproj",
         "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\projectBDSA\\Project.Tests\\obj\\",
+        "outputPath": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -25,7 +25,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project\\Project.csproj": {
+                "projectPath": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project\\Project.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -59,6 +63,59 @@
               "version": "[2.4.3, )"
             }
           },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.404\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project\\Project.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project\\Project.csproj",
+        "projectName": "Project",
+        "projectPath": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project\\Project.csproj",
+        "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
           "imports": [
             "net461",
             "net462",

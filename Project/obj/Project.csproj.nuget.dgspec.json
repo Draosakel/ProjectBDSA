@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chris\\Desktop\\BDSA\\C#\\projectBDSA\\Project\\Project.csproj": {}
+    "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project\\Project.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chris\\Desktop\\BDSA\\C#\\projectBDSA\\Project\\Project.csproj": {
+    "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project\\Project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\projectBDSA\\Project\\Project.csproj",
+        "projectUniqueName": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project\\Project.csproj",
         "projectName": "Project",
-        "projectPath": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\projectBDSA\\Project\\Project.csproj",
+        "projectPath": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project\\Project.csproj",
         "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\projectBDSA\\Project\\obj\\",
+        "outputPath": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config"

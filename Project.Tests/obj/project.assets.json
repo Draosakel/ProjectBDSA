@@ -1802,6 +1802,16 @@
         "build": {
           "build/netcoreapp2.1/xunit.runner.visualstudio.props": {}
         }
+      },
+      "Project/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Project.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Project.dll": {}
+        }
       }
     }
   },
@@ -6098,11 +6108,17 @@
         "xunit.runner.visualstudio.2.4.3.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
+    },
+    "Project/1.0.0": {
+      "type": "project",
+      "path": "../Project/Project.csproj",
+      "msbuildProject": "../Project/Project.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Microsoft.NET.Test.Sdk >= 17.1.0",
+      "Project >= 1.0.0",
       "coverlet.collector >= 3.1.2",
       "xunit >= 2.4.1",
       "xunit.runner.visualstudio >= 2.4.3"
@@ -6114,11 +6130,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\projectBDSA\\Project.Tests\\Project.Tests.csproj",
+      "projectUniqueName": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project.Tests\\Project.Tests.csproj",
       "projectName": "Project.Tests",
-      "projectPath": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\projectBDSA\\Project.Tests\\Project.Tests.csproj",
+      "projectPath": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project.Tests\\Project.Tests.csproj",
       "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\chris\\Desktop\\BDSA\\C#\\projectBDSA\\Project.Tests\\obj\\",
+      "outputPath": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -6132,7 +6148,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project\\Project.csproj": {
+              "projectPath": "c:\\Users\\chris\\Desktop\\BDSA\\C#\\ProjectBDSA\\Project\\Project.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
