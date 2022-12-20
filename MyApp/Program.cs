@@ -6,12 +6,29 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-            var path = Console.ReadLine();
-            var cam = CommitAuthorMode(path);
-            var cfm = CommitFrequencyMode(path);
+            using var db = new AppContext();
 
-            PrintCommitAuthorMode(cam);
-            PrintCommitFrequencyMode(cfm);
+            var path = Console.ReadLine();
+            //CommitAuthorModeToDB(CommitAuthorMode(path), db);
+            //CommitFrequencyModeToDB(CommitFrequencyMode(path), db);
+
+            //PrintCommitAuthorMode(cam);
+            PrintCommitFrequencyMode(db);
+        }
+
+        public static void CommitAuthorModeToDB(Dictionary<String, Author> cam, AppContext db){
+            foreach(KeyValuePair<String, Author> entry in cam)
+            {
+                db.Add(entry.Value);
+            } 
+            db.SaveChanges();            
+        }
+
+        public static void CommitFrequencyModeToDB(IEnumerable<Commit> cam, AppContext db){
+            foreach(var commit in cam) {
+                db.Add(commit);
+            }
+            db.SaveChanges();
         }
 
         public static void PrintCommitAuthorMode(Dictionary<String, Dictionary<String, int>> cam) {
@@ -26,17 +43,26 @@ namespace MyApp
             }   
         }
 
-        public static void PrintCommitFrequencyMode(Dictionary<String, int> cfm) {
-            cfm
-                .Select(pair => new String(pair.Value + " " + pair.Key))
-                .ToList()
-                .ForEach(pair => Console.WriteLine(pair));
+        public static void PrintCommitFrequencyMode(AppContext db) {
+            var commit = db.Commits
+            .OrderBy(b => b.Date).ToList();
+
+
+            foreach (var item in commit) {
+                Console.WriteLine(item.Date + "  " + item.CommitId);
+            }
+
+            // if(commitDict.ContainsKey(commitDate)) {
+            //                 commitDict[commitDate] += 1;
+            //             } else {
+            //                 commitDict.Add(commitDate, 1);
+            //             }
         }
 
-        public static Dictionary<String, Dictionary<String, int>>  CommitAuthorMode(String path){
+        public static Dictionary<String, Author> CommitAuthorMode(String path){
             if(Repository.IsValid(path))
             {
-                var commitDict = new Dictionary<String, Dictionary<String, int>>();
+                var commitDict = new Dictionary<String, Author>();
                 using (var repo = new Repository(path))
                 {
                     var commits = repo.Branches.SelectMany(x => x.Commits)
@@ -49,16 +75,12 @@ namespace MyApp
                         var commitDate = commit.Author.When;
                         var commitDateFormat = commit.Author.When.Date.ToString().Replace(" 00:00:00", "");
                         var commitAuthor = commit.Author.Name;
-
-                        if (commitDict.ContainsKey(commitAuthor)) {
-                            if (commitDict[commitAuthor].ContainsKey(commitDateFormat)) {
-                                commitDict[commitAuthor][commitDateFormat] += 1;
-                            }
-                            else
-                            commitDict[commitAuthor].Add(commitDateFormat, 1);
-                        } 
-                        else 
-                        commitDict.Add(commitAuthor, new Dictionary<String, int>()); 
+                        if(commitDict.ContainsKey(commitAuthor)) {
+                            commitDict[commitAuthor].Commits.Add(new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")});
+                        }
+                        else {
+                            commitDict.Add(commitAuthor, new Author() {AuthorId = commitAuthor, Commits = new List<Commit>() {new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")}}});
+                        }
                     }
 
 
@@ -67,9 +89,8 @@ namespace MyApp
             }
             throw new ArgumentException();
         }
-        public static Dictionary<String, int> CommitFrequencyMode(String path) {
+        public static IEnumerable<Commit> CommitFrequencyMode(String path) {
             if(Repository.IsValid(path)){
-                var commitDict = new Dictionary<String, int>();
                 using (var repo = new Repository(path))
                     {
                     var commits = repo.Branches.SelectMany(x => x.Commits)
@@ -77,14 +98,9 @@ namespace MyApp
                         .Select(x => x.First())
                         .ToArray();
                     foreach (var commit in commits) {
-                        var commitDate = commit.Author.When.Date.ToString().Replace(" 00:00:00", "");
-                        if(commitDict.ContainsKey(commitDate)) {
-                            commitDict[commitDate] += 1;
-                        } else {
-                            commitDict.Add(commitDate, 1);
-                        }
+                        Console.WriteLine(commit.ToString());
+                        yield return new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")};
                     }
-                    return commitDict;
                 }
             }
             throw new ArgumentException();
