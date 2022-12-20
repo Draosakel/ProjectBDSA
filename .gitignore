@@ -1,6 +1,6 @@
 MyApp/bin/
 MyApp/obj/
 MyApp.Tests/obj/
-MyApp.Tests/obj/
+MyApp.Tests/bin/
 
 .vscode
