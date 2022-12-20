@@ -13,24 +13,6 @@ public class ProgramTest {
     }
 
     [Fact]
-    public void CommitFrequencyMode()
-    {
-        var expected = new Dictionary<String, int>() {
-            {"28-11-2022",10}, 
-            {"23-11-2022",7}, 
-            {"16-11-2022",1}, 
-            {"14-11-2022",1}, 
-            {"09-11-2022",1}, 
-            {"08-11-2022",1}, 
-            {"21-10-2022",3}
-        };
-
-        var actual = Program.CommitFrequencyMode(path);
-
-        actual.Should().BeEquivalentTo(expected);
-    }
-
-    [Fact]
     public void CommitAuthorMode()
     {
         var expected = new Dictionary<String, Dictionary<String, int>>() {

@@ -9,11 +9,11 @@ namespace MyApp
             using var db = new AppContext();
 
             var path = Console.ReadLine();
-            //CommitAuthorModeToDB(CommitAuthorMode(path), db);
-            //CommitFrequencyModeToDB(CommitFrequencyMode(path), db);
+            CommitAuthorModeToDB(CommitAuthorMode(path), db);
 
-            //PrintCommitAuthorMode(cam);
-            PrintCommitFrequencyMode(db);
+            PrintCommitAuthorMode(CommitsAuthorToIterableDictionary(db));
+            Console.WriteLine("----------------------------------------------------------------");
+            PrintCommitFrequencyMode(CommitsFrequencyToIterableDictionary(db));
         }
 
         public static void CommitAuthorModeToDB(Dictionary<String, Author> cam, AppContext db){
@@ -22,13 +22,6 @@ namespace MyApp
                 db.Add(entry.Value);
             } 
             db.SaveChanges();            
-        }
-
-        public static void CommitFrequencyModeToDB(IEnumerable<Commit> cam, AppContext db){
-            foreach(var commit in cam) {
-                db.Add(commit);
-            }
-            db.SaveChanges();
         }
 
         public static void PrintCommitAuthorMode(Dictionary<String, Dictionary<String, int>> cam) {
@@ -43,20 +36,43 @@ namespace MyApp
             }   
         }
 
-        public static void PrintCommitFrequencyMode(AppContext db) {
-            var commit = db.Commits
-            .OrderBy(b => b.Date).ToList();
+        public static void PrintCommitFrequencyMode(Dictionary<String, int> commits) {
+            foreach(KeyValuePair<String, int> entry in commits)
+            {
+                Console.WriteLine(entry.Value + " " + entry.Key);
+            }  
+        }
 
-
-            foreach (var item in commit) {
-                Console.WriteLine(item.Date + "  " + item.CommitId);
+        public static Dictionary<String, int> CommitsFrequencyToIterableDictionary(AppContext db) {
+            var authorCommits = db.Authors.ToList();
+            var commitDict = new Dictionary<String, int>();
+            foreach (var author in authorCommits)
+            foreach (var commit in author.Commits) {
+                if(commitDict.ContainsKey(commit.Date)) {
+                commitDict[commit.Date] += 1;
+                } else
+                commitDict.Add(commit.Date, 1);
             }
+            return commitDict;
+        }
 
-            // if(commitDict.ContainsKey(commitDate)) {
-            //                 commitDict[commitDate] += 1;
-            //             } else {
-            //                 commitDict.Add(commitDate, 1);
-            //             }
+        public static Dictionary<String, Dictionary<String, int>> CommitsAuthorToIterableDictionary(AppContext db) {
+            var authorCommits = db.Authors.ToList();
+            var commitDict = new Dictionary<String, Dictionary<String, int>>();
+            foreach (var authorCommit in authorCommits) {
+                if (!commitDict.ContainsKey(authorCommit.AuthorId)) {
+                    commitDict.Add(authorCommit.AuthorId, new Dictionary<String, int>()); 
+                }
+                if(authorCommit.Commits == null) continue;
+                foreach (var commit in authorCommit.Commits) {
+                    if (commitDict[authorCommit.AuthorId].ContainsKey(commit.Date)) {
+                        commitDict[authorCommit.AuthorId][commit.Date] += 1;
+                    }
+                    else
+                    commitDict[authorCommit.AuthorId].Add(commit.Date, 1);
+                }
+            }
+            return commitDict;
         }
 
         public static Dictionary<String, Author> CommitAuthorMode(String path){
@@ -78,30 +94,11 @@ namespace MyApp
                         if(commitDict.ContainsKey(commitAuthor)) {
                             commitDict[commitAuthor].Commits.Add(new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")});
                         }
-                        else {
-                            commitDict.Add(commitAuthor, new Author() {AuthorId = commitAuthor, Commits = new List<Commit>() {new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")}}});
-                        }
+                        else
+                        commitDict.Add(commitAuthor, new Author() {AuthorId = commitAuthor, Commits = new List<Commit>() {new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")}}});
                     }
-
-
                 }
                 return commitDict;
-            }
-            throw new ArgumentException();
-        }
-        public static IEnumerable<Commit> CommitFrequencyMode(String path) {
-            if(Repository.IsValid(path)){
-                using (var repo = new Repository(path))
-                    {
-                    var commits = repo.Branches.SelectMany(x => x.Commits)
-                        .GroupBy(x => x.Sha)
-                        .Select(x => x.First())
-                        .ToArray();
-                    foreach (var commit in commits) {
-                        Console.WriteLine(commit.ToString());
-                        yield return new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")};
-                    }
-                }
             }
             throw new ArgumentException();
         }
