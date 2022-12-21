@@ -1,6 +1,10 @@
 MyApp/bin/
 MyApp/obj/
+
 MyApp.Tests/obj/
 MyApp.Tests/bin/
+
+MyWebApi/obj/
+MyWebApi/bin/
 
 .vscode
