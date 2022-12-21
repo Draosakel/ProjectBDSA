@@ -14,6 +14,7 @@ namespace MyApp
             }
             Console.WriteLine(path);
             CommitAuthorMode(path, db);
+            db.SaveChanges();
 
             PrintCommitAuthorMode(CommitsAuthorToIterableDictionary(db));
             Console.WriteLine("----------------------------------------------------------------");
@@ -82,7 +83,6 @@ namespace MyApp
         public static void CommitAuthorMode(String path, AppContext db){
             if(Repository.IsValid(path))
             {
-                var commitDict = new Dictionary<String, Author>();
                 using (var repo = new Repository(path))
                 {
                     var commits = repo.Branches.SelectMany(x => x.Commits)
@@ -107,16 +107,10 @@ namespace MyApp
                         else {
                             db.Authors.Add(
                                 new Author() {AuthorId = commitAuthor, Commits = new List<Commit>()
-                                    {new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")}}
+                                    { new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")} }
                                 }
                             );
                         }
-
-                        // if(commitDict.ContainsKey(commitAuthor)) {
-                        //     commitDict[commitAuthor].Commits.Add(new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")});
-                        // }
-                        // else
-                        // commitDict.Add(commitAuthor, new Author() {AuthorId = commitAuthor, Commits = new List<Commit>() {new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")}}});
                     }
                 }
             }
