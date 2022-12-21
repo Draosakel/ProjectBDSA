@@ -9,7 +9,11 @@ namespace MyApp
             using var db = new AppContext();
 
             var path = Console.ReadLine();
-            CommitAuthorModeToDB(CommitAuthorMode(path), db);
+            if (path == "" || path == null) {
+                path = @"C:\Users\Ejer\source\repos\ProjectBDSA";
+            }
+            Console.WriteLine(path);
+            CommitAuthorMode(path, db);
 
             PrintCommitAuthorMode(CommitsAuthorToIterableDictionary(db));
             Console.WriteLine("----------------------------------------------------------------");
@@ -75,7 +79,7 @@ namespace MyApp
             return commitDict;
         }
 
-        public static Dictionary<String, Author> CommitAuthorMode(String path){
+        public static void CommitAuthorMode(String path, AppContext db){
             if(Repository.IsValid(path))
             {
                 var commitDict = new Dictionary<String, Author>();
@@ -87,20 +91,36 @@ namespace MyApp
                         .ToArray();
                     foreach (var commit in commits)
                     {
-                        var commitName = commit;
-                        var commitDate = commit.Author.When;
-                        var commitDateFormat = commit.Author.When.Date.ToString().Replace(" 00:00:00", "");
-                        var commitAuthor = commit.Author.Name;
-                        if(commitDict.ContainsKey(commitAuthor)) {
-                            commitDict[commitAuthor].Commits.Add(new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")});
+                        if (db.Commits.Find(commit.ToString()) != null) {
+                            continue;
                         }
-                        else
-                        commitDict.Add(commitAuthor, new Author() {AuthorId = commitAuthor, Commits = new List<Commit>() {new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")}}});
+
+                        var commitAuthor = commit.Author.Name;
+
+                        var dbAuthor = db.Authors.Find(commitAuthor);
+
+                        if (dbAuthor != null) {
+                            dbAuthor.Commits.Add(
+                                new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")}
+                            );
+                        }
+                        else {
+                            db.Authors.Add(
+                                new Author() {AuthorId = commitAuthor, Commits = new List<Commit>()
+                                    {new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")}}
+                                }
+                            );
+                        }
+
+                        // if(commitDict.ContainsKey(commitAuthor)) {
+                        //     commitDict[commitAuthor].Commits.Add(new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")});
+                        // }
+                        // else
+                        // commitDict.Add(commitAuthor, new Author() {AuthorId = commitAuthor, Commits = new List<Commit>() {new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")}}});
                     }
                 }
-                return commitDict;
             }
-            throw new ArgumentException();
+            throw new ArgumentException("Non valid path");
         }
     }
 }
