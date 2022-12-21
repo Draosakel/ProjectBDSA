@@ -1,9 +1,10 @@
 using LibGit2Sharp;
+using System.Text.Json;
 
 namespace MyWebApi;
 
 public static class Cloner {
-    public static void CloneRepo(string user, string repo, AppContext db) {
+    public static string CloneRepo(string user, string repo, AppContext db) {
         var repo1 = repo;
         if (System.IO.Directory.Exists("../repos/" + repo1)) {
             var count = 1;
@@ -17,6 +18,7 @@ public static class Cloner {
         Repository.Clone(path, "../repos/" + repo1);
         SaveCommitsToDB("../repos/" + repo1, db, repo1); 
         db.SaveChanges();
+        return CommitDictToJson(CommitsToDictionary(db, repo1));
     }
 
     public static void SaveCommitsToDB(string path, AppContext db, string repository){
@@ -70,5 +72,48 @@ public static class Cloner {
         else {
             throw new ArgumentException("Non valid path");
         }
+    }
+
+    public static Dictionary<String, Dictionary<String, int>> CommitsToDictionary(AppContext db, string repository) {
+        var authorCommits = db.Repos.Find(repository).Authors.ToList();
+        var commitDict = new Dictionary<String, Dictionary<String, int>>();
+        foreach (var authorCommit in authorCommits) {
+            if (!commitDict.ContainsKey(authorCommit.AuthorId)) {
+                commitDict.Add(authorCommit.AuthorId, new Dictionary<String, int>()); 
+            }
+            if(authorCommit.Commits == null) continue;
+            foreach (var commit in authorCommit.Commits) {
+                if (commitDict[authorCommit.AuthorId].ContainsKey(commit.Date)) {
+                    commitDict[authorCommit.AuthorId][commit.Date] += 1;
+                }
+                else
+                commitDict[authorCommit.AuthorId].Add(commit.Date, 1);
+            }
+        }
+        return commitDict;
+    }
+
+    public static string CommitDictToJson(Dictionary<String, Dictionary<String, int>> cam) {
+        var commitList = new List<JsonAuthors>();
+        var count = 0;
+        foreach(KeyValuePair<String, Dictionary<String, int>> entry in cam)
+        {
+            commitList.Add(new JsonAuthors() {AuthorId = entry.Key, AuthorCommits = new List<JsonCommit>()});
+            foreach(KeyValuePair<String, int> entryx in entry.Value) {
+                commitList[count].AuthorCommits.Add(new JsonCommit() {totalCommits = entryx.Value, commitDate = entryx.Key});
+            }
+            count++;
+        } 
+        return JsonSerializer.Serialize(commitList);
+    }
+
+    public class JsonAuthors {
+        public string AuthorId { get; set; }
+        public List<JsonCommit> AuthorCommits { get; set; }
+    }
+
+    public class JsonCommit {
+        public int totalCommits { get; set; }
+        public string commitDate { get; set; }
     }
 }

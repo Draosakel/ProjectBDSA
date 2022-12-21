@@ -9,9 +9,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.1" />
-    <PackageReference Include="LibGit2Sharp" Version="*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.1"/>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.1"/>
+    <PackageReference Include="LibGit2Sharp" Version="*"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.1"/>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2"/>
   </ItemGroup>
 </Project>
