@@ -1,5 +1,4 @@
 ﻿using LibGit2Sharp;
-using System.IO.Compression;
 
 namespace MyApp
 {
@@ -7,19 +6,14 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-            if(!Directory.Exists("../../../../AuctionSystem-replication")){
-                ZipFile.ExtractToDirectory("../../../../AuctionSystem-replication.zip", "../../../../");
-            }
-            var path = "../../../../AuctionSystem-replication";
             using var db = new AppContext();
-            //CommitAuthorModeToDB(CommitAuthorMode(path), db);
+
+            var path = Console.ReadLine();
+            CommitAuthorModeToDB(CommitAuthorMode(path), db);
 
             PrintCommitAuthorMode(CommitsAuthorToIterableDictionary(db));
             Console.WriteLine("----------------------------------------------------------------");
             PrintCommitFrequencyMode(CommitsFrequencyToIterableDictionary(db));
-
-            //Delete unzipped folder
-            Directory.Delete("../../../../../../../AuctionSystem-replication", true);
         }
 
         public static void CommitAuthorModeToDB(Dictionary<String, Author> cam, AppContext db){
@@ -52,14 +46,12 @@ namespace MyApp
         public static Dictionary<String, int> CommitsFrequencyToIterableDictionary(AppContext db) {
             var authorCommits = db.Authors.ToList();
             var commitDict = new Dictionary<String, int>();
-            foreach (var author in authorCommits) {
-                if(author.Commits == null) continue;
-                foreach (var commit in author.Commits) {
-                    if(commitDict.ContainsKey(commit.Date)) {
-                    commitDict[commit.Date] += 1;
-                    } else
-                    commitDict.Add(commit.Date, 1);
-                }
+            foreach (var author in authorCommits)
+            foreach (var commit in author.Commits) {
+                if(commitDict.ContainsKey(commit.Date)) {
+                commitDict[commit.Date] += 1;
+                } else
+                commitDict.Add(commit.Date, 1);
             }
             return commitDict;
         }
