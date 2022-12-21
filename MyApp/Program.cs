@@ -21,14 +21,6 @@ namespace MyApp
             PrintCommitFrequencyMode(CommitsFrequencyToIterableDictionary(db));
         }
 
-        public static void CommitAuthorModeToDB(Dictionary<String, Author> cam, AppContext db){
-            foreach(KeyValuePair<String, Author> entry in cam)
-            {
-                db.Add(entry.Value);
-            } 
-            db.SaveChanges();            
-        }
-
         public static void PrintCommitAuthorMode(Dictionary<String, Dictionary<String, int>> cam) {
             foreach(KeyValuePair<String, Dictionary<String, int>> entry in cam)
             {
