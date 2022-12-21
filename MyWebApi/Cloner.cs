@@ -16,6 +16,7 @@ public static class Cloner {
         var path = "https://github.com/" + user + "/" + repo;
         Repository.Clone(path, "../repos/" + repo1);
         SaveCommitsToDB("../repos/" + repo1, db, repo1); 
+        db.SaveChanges();
     }
 
     public static void SaveCommitsToDB(string path, AppContext db, string repository){
@@ -36,12 +37,25 @@ public static class Cloner {
                     }
 
                     var commitAuthor = commit.Author.Name;
+                    bool dbAuthor = false;
                     
-                    var dbAuthor =  db.Repos.Find(repository).Authors.Contains(commitAuthor);
+                    db.Repos.Find(repository).Authors.ForEach(
+                        item => {
+                            if (item.AuthorId == commitAuthor) {
+                                dbAuthor = true;
+                            }
+                        }
+                    );
 
                     if (dbAuthor) {
-                        db.Repos.Find(repository).Authors.Find(commitAuthor).Commits.Add(
-                            new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")}
+                        db.Repos.Find(repository).Authors.ForEach(
+                            item => {
+                                if (item.AuthorId == commitAuthor) {
+                                    item.Commits.Add(
+                                        new Commit() {CommitId = commit.ToString(), Date = commit.Author.When.Date.ToString().Replace(" 00:00:00", "")}
+                                    );
+                                }
+                            }
                         );
                     }
                     else {
