@@ -3,16 +3,13 @@ using LibGit2Sharp;
 using MyWebApi;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<TodoDb>(opt => opt.UseInMemoryDatabase("TodoList"));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 var app = builder.Build();
 
-app.MapGet("/todoitems", async (TodoDb db) =>
-    await db.Todos.ToListAsync());
-
-app.MapGet("/downloadrepos/{user}/{repo}", async (string user, string repo, TodoDb db) =>
+app.MapGet("/downloadrepos/{user}/{repo}", async (string user, string repo) =>
     {
-        Repo.CloneRepo();
+        using var db = new AppContext();
+        Cloner.CloneRepo(user, repo, db);
         return "123";
     }
 );

@@ -1,16 +1,40 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-class TodoDb : DbContext
+public class AppContext : DbContext
 {
-    public TodoDb(DbContextOptions<TodoDb> options)
-        : base(options) { }
+    public DbSet<Repo> Repos { get; set; }
+    public DbSet<Author> Authors { get; set; }
+    public DbSet<Commit> Commits { get; set; }
 
-    public DbSet<Todo> Todos => Set<Todo>();
+    public string DbPath { get; }
+
+    public AppContext()
+    {
+        var folder = Environment.SpecialFolder.LocalApplicationData;
+        var path = Environment.GetFolderPath(folder);
+        DbPath = System.IO.Path.Join(path, "MyApp.db");
+    }
+
+    // The following configures EF to create a Sqlite database file in the
+    // special "local" folder for your platform.
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+        => options.UseSqlite($"Data Source={DbPath}");
+}
+public class Repo
+{
+    public string RepoId { get; set; }
+    public List<Author> Authors { get; set; }
+}
+public class Author
+{
+    public string AuthorId { get; set; }
+    public List<Commit> Commits { get; set; }
 }
 
-class Todo
+public class Commit
 {
-    public int Id { get; set; }
-    public string? Name { get; set; }
-    public bool IsComplete { get; set; }
+    public string CommitId { get; set; }
+    public string Date { get; set; }
 }
