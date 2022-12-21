@@ -13,7 +13,7 @@ namespace MyApp
                 path = @"C:\Users\Ejer\source\repos\ProjectBDSA";
             }
             Console.WriteLine(path);
-            CommitAuthorMode(path, db);
+            SaveCommitsToDB(path, db);
             db.SaveChanges();
 
             PrintCommitAuthorMode(CommitsAuthorToIterableDictionary(db));
@@ -80,7 +80,7 @@ namespace MyApp
             return commitDict;
         }
 
-        public static void CommitAuthorMode(String path, AppContext db){
+        public static void SaveCommitsToDB(String path, AppContext db){
             if(Repository.IsValid(path))
             {
                 using (var repo = new Repository(path))
@@ -114,7 +114,9 @@ namespace MyApp
                     }
                 }
             }
-            throw new ArgumentException("Non valid path");
+            else {
+                throw new ArgumentException("Non valid path");
+            }
         }
     }
 }
