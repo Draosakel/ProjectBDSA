@@ -21,6 +21,10 @@ namespace MyApp
             PrintCommitFrequencyMode(CommitsFrequencyToIterableDictionary(db));
         }
 
+        public static string test() {
+            return "hejejejjeje";
+        }
+
         public static void PrintCommitAuthorMode(Dictionary<String, Dictionary<String, int>> cam) {
             foreach(KeyValuePair<String, Dictionary<String, int>> entry in cam)
             {
