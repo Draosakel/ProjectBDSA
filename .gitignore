@@ -7,4 +7,7 @@ MyApp.Tests/bin/
 MyWebApi/obj/
 MyWebApi/bin/
 
+BlazorWebAssemblyApp/obj/
+BlazorWebAssemblyApp/bin/
+
 .vscode

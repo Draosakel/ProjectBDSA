@@ -1,0 +1,9 @@
+<RadzenButton Text=@text Click=@OnButtonClick />
+@code {
+    string text = "Click";
+    void OnButtonClick()
+    {
+        text = "Nice!";
+        Console.WriteLine(text);
+    }
+}

@@ -1,0 +1,23 @@
+
+<div class="col-md-6 col-lg-4 p-3">
+            <RadzenCard>
+                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Enter User/Reponame</RadzenText>
+                <RadzenTextBox Change=@(args => OnChange(args, "TextBox")) Class="w-100" />
+            </RadzenCard>
+            <RadzenButton Text=@text Click=@OnButtonClick />
+</div>
+
+@code {
+    string path;
+    string text = "Analyse";
+
+    void OnChange(string value, string name)
+    {
+        //https://github.com/Draosakel/ProjectBDSA
+        path =  "https://github.com/" + value;
+    }
+    void OnButtonClick()
+    {
+        text = path;
+    }
+}
