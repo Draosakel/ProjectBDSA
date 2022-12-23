@@ -10,5 +10,6 @@
     <PackageReference Include="Radzen.Blazor" Version="4.4.7"/>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9"/>
     <PackageReference Include="System.Net.Http.Json" Version="7.0.0"/>
+    <PackageReference Include="Radzen.Design" Version="*"/>
   </ItemGroup>
 </Project>

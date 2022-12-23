@@ -1,0 +1,88 @@
+<RadzenText TextStyle="TextStyle.H3" TagName="TagName.H1" Class="my-4">
+    Radzen Blazor Chart with line series
+</RadzenText>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 my-5">
+                <RadzenCard Class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem" >
+                    <RadzenCheckBox @bind-Value="@smooth" Name="smooth"></RadzenCheckBox>
+                    <RadzenLabel Text="Smooth" For="smooth" Style="margin-right: 1rem;"/>
+                    <RadzenCheckBox @bind-Value="@showDataLabels" Name="dataLabels"></RadzenCheckBox>
+                    <RadzenLabel Text="Show Data Labels" For="dataLabels" />
+                </RadzenCard>
+                <RadzenChart>
+
+                    @foreach (var datalist in datalists) {
+                    <RadzenLineSeries Smooth="@smooth" Data="@datalist.ToArray()" CategoryProperty="Date" Title="testname" LineType="LineType.Dashed" ValueProperty="Revenue">
+                        <RadzenMarkers MarkerType="MarkerType.Square" />
+                        <RadzenSeriesDataLabels Visible="@showDataLabels" />
+                    </RadzenLineSeries>
+                    }
+
+                    <RadzenCategoryAxis Padding="20" Formatter="@FormatAsMonth" />
+                    <RadzenValueAxis Formatter="@FormatAsUSD">
+                        <RadzenGridLines Visible="true" />
+                        <RadzenAxisTitle Text="Revenue in USD" />
+                    </RadzenValueAxis>
+                </RadzenChart>
+            </div>
+        </div>
+    </div>
+@code {
+    bool smooth = false;
+    bool showDataLabels = false;
+
+    List<List<DataItem>> datalists = new List<List<DataItem>>();
+    Author[] authors;
+    public LineChart() {
+        Console.WriteLine("IM RUN");
+        Console.WriteLine(authors);
+        foreach (var a in authors) {
+            var dataitems = new List<DataItem>();
+            foreach (var c in a.AuthorCommits) {
+                dataitems.Add(new DataItem() { Date = c.commitDate, Revenue = c.totalCommits });
+            }
+            datalists.Add(dataitems);
+        } 
+    }
+
+    class DataItem
+    {
+        public string Date { get; set; }
+        public double Revenue { get; set; }
+    }
+
+    string FormatAsUSD(object value)
+    {
+        return ((double)value).ToString("C0", CultureInfo.CreateSpecificCulture("en-US"));
+    }
+
+    string FormatAsMonth(object value)
+    {
+        if (value != null)
+        {
+            return Convert.ToDateTime(value).ToString("MMM");
+        }
+
+        return string.Empty;
+    }
+
+    DataItem[] revenue2019 = new DataItem[] {
+        new DataItem
+        {
+            Date = ("2019-01-01"),
+            Revenue = 234000
+        },
+    };
+
+    public class Author {
+        public string AuthorId { get; set; }
+        public List<Commit> AuthorCommits { get; set; }
+    }
+
+    public class Commit {
+        public int totalCommits { get; set; }
+        public string commitDate { get; set; }
+    }
+}
