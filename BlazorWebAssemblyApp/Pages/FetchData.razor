@@ -1,36 +1,53 @@
 ﻿@page "/fetchdata"
-
 @inject HttpClient Http
-    
+
 <PageTitle>Weather forecast</PageTitle>
 
+<h1>Weather forecast</h1>
+
 <div class="col-md-6 col-lg-4 p-3">
-            <RadzenCard>
-                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Enter User/Reponame</RadzenText>
-                <RadzenTextBox Change=@(args => OnChange(args, "TextBox")) Class="w-100" />
-            </RadzenCard>
-            <RadzenButton Text=@text Click=@OnButtonClick />
+    <RadzenCard>
+        <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Enter User/Reponame</RadzenText>
+        <RadzenTextBox Change=@(args => OnChange(args, "TextBox")) Class="w-100" />
+    </RadzenCard>
+    <RadzenButton Text=@text Click=@OnButtonClick />
+</div>
+
+<div>
+@if (authors != null) {
+    @foreach (var a in authors)
+    {
+        <div @key="a">@a.AuthorId</div>
+        <ul>
+            @foreach (var c in a.AuthorCommits) {
+                <li>@c.commitDate : @c.totalCommits</li>
+            }
+        </ul>
+    }
+} 
 </div>
 
 @code {
+
+    Author[] authors = null;
+
     string path;
     string text = "Analyse";
 
     void OnChange(string value, string name)
     {
-        path =  "http://localhost:5258/downloadrepos/" + value;
+        path = "http://localhost:5258/downloadrepos/" + value;
     }
     async void OnButtonClick()
     {
-        text = await OnInitializedAsync(path);
-    }   
+        var forecasts = await Http.GetFromJsonAsync<Author[]>(path);
+        authors = forecasts;
 
-    protected async Task<Author> OnInitializedAsync(string path)
-    {
-        private Author[]? authors;
-
-        protected override async Task OnInitializedAsync() => 
-        authors = await Http.GetFromJsonAsync<Author[]>(path);
+        Console.WriteLine(forecasts);
+        foreach (var i in forecasts) {
+            Console.WriteLine(i.AuthorId);
+        }
+        
     }
 
     public class Author {
