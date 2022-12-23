@@ -1,4 +1,4 @@
-
+   
 <div class="col-md-6 col-lg-4 p-3">
             <RadzenCard>
                 <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Enter User/Reponame</RadzenText>
@@ -13,11 +13,28 @@
 
     void OnChange(string value, string name)
     {
-        //https://github.com/Draosakel/ProjectBDSA
-        path =  "https://github.com/" + value;
+        path =  "http://localhost:5258/downloadrepos/" + value;
     }
-    void OnButtonClick()
+    async void OnButtonClick()
     {
-        text = path;
+        //text = await OnInitializedAsync(path);
+    }   
+
+    @* protected async Task<Author> OnInitializedAsync(string path)
+    {
+        private Author[]? authors;
+
+        protected override async Task OnInitializedAsync() => 
+        authors = await Http.GetFromJsonAsync<Author[]>(path);
     }
+
+    public class Author {
+        public string AuthorId { get; set; }
+        public List<Commit> AuthorCommits { get; set; }
+    }
+
+    public class Commit {
+        public int totalCommits { get; set; }
+        public string commitDate { get; set; }
+    } *@
 }
